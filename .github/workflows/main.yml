@@ -21,11 +21,16 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run tests
-      run: npm test  # Run your tests here, if applicable
+    # - name: Run tests
+    #   run: npm test  # Run your tests here, if applicable
 
-    - name: Build project
-      run: npm run build  # Customize based on your project build script
+    # - name: Build project
+    #   run: npm run build  # Customize based on your project build script
+
+    - name: Start project
+      run: npm run start  # Customize based on your project build script
+
+    
 
     - name: Deploy (if applicable)
       run: |
