@@ -1,0 +1,13 @@
+{
+  "name": "hello-world-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Very basic Node.js Hello World server",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
+
+
