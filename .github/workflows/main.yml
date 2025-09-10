@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master  # You can change this to your preferred branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # The OS for the build
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # You can change the version as per your requirements
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test  # Run your tests here, if applicable
+
+    - name: Build project
+      run: npm run build  # Customize based on your project build script
+
+    - name: Deploy (if applicable)
+      run: |
+        echo "Deployment script goes here"  # You can add your deployment script here
