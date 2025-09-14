@@ -3,35 +3,35 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # You can change this to your preferred branch
+      - main  # Change if you use a different branch
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # The OS for the build
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'  # You can change the version as per your requirements
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Use latest LTS version
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    # - name: Run tests
-    #   run: npm test  # Run your tests here, if applicable
+      # Optional: run tests (uncomment if you have them)
+      # - name: Run tests
+      #   run: npm test
 
-    # - name: Build project
-    #   run: npm run build  # Customize based on your project build script
+      # Optional: build step (uncomment if needed)
+      # - name: Build project
+      #   run: npm run build
 
-    - name: Start project
-      run: npm run start  # Customize based on your project build script
-
-    
-
-    - name: Deploy (if applicable)
-      run: |
-        echo "Deployment script goes here"  # You can add your deployment script here
+      - name: Verify project runs
+        run: |
+          echo "Starting project for verification..."
+          node index.js &
+          sleep 5
+          echo "Server started successfully, exiting now."
