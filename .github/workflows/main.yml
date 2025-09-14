@@ -1,37 +1,21 @@
-name: CI/CD Pipeline
+name: Deploy Calculator App
 
 on:
   push:
     branches:
-      - main  # Change if you use a different branch
+      - main  # Run whenever you push to main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      # This action deploys your files to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          node-version: '18' # Use latest LTS version
-
-      - name: Install dependencies
-        run: npm install
-
-      # Optional: run tests (uncomment if you have them)
-      # - name: Run tests
-      #   run: npm test
-
-      # Optional: build step (uncomment if needed)
-      # - name: Build project
-      #   run: npm run build
-
-      - name: Verify project runs
-        run: |
-          echo "Starting project for verification..."
-          node index.js &
-          sleep 5
-          echo "Server started successfully, exiting now."
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./   # Your root folder (change if your files are in /dist or /public)
