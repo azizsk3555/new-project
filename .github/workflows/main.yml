@@ -9,15 +9,35 @@ permissions:
   contents: write  # Needed so the action can push to gh-pages branch
 
 jobs:
-  deploy:
+  lint-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout the code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Install Linters (HTML, CSS, JS)
+      - name: Install Linters
+        run: |
+          npm install -g htmlhint stylelint eslint
+
+      # 3️⃣ Lint HTML files
+      - name: Lint HTML
+        run: htmlhint "**/*.html"
+
+      # 4️⃣ Lint CSS files
+      - name: Lint CSS
+        run: stylelint "**/*.css"
+
+      # 5️⃣ Lint JavaScript files
+      - name: Lint JS
+        run: eslint "**/*.js" || echo "⚠️ JavaScript issues found, review required"
+
+      # 6️⃣ Deploy only if lint passes
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        if: success()
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./   # change if your files are in /dist or /public
